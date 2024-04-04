@@ -10,7 +10,6 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 
-#include "matrix.hpp"
 #include "simulation.hpp"
 #include "unit_utilities.hpp"
 // Display class - handles all sfml rendering, simulation class
@@ -40,8 +39,8 @@ private:
     sf::VideoMode video_mode;
     sf::Vector2i mouse_position_in_window;
 
-    //std::unique_ptr<sf::Sprite> sprite;
-    //std::unique_ptr<sf::Texture> texture;
+    std::unique_ptr<sf::Sprite> sprite;
+    std::unique_ptr<sf::Texture> texture;
 
 	std::unique_ptr<UnitUtilities> unit_utilities;
 	std::unique_ptr<Simulation> simulation;

@@ -15,7 +15,6 @@ cellular_automaton/simulation.cpp
 cellular_automaton/unit_utilities.cpp
 cellular_automaton/matrix.cpp
 cellular_automaton/cell.cpp
-cellular_automaton/rule.cpp
 cellular_automaton/rule_set.cpp
 cellular_automaton/display.cpp
 
@@ -23,7 +22,6 @@ cellular_automaton/simulation.hpp
 cellular_automaton/unit_utilities.hpp
 cellular_automaton/matrix.hpp
 cellular_automaton/cell.hpp
-cellular_automaton/rule.hpp
 cellular_automaton/rule_set.hpp
 cellular_automaton/display.hpp
 )

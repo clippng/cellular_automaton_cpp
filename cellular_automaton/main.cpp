@@ -1,14 +1,16 @@
-#include "main.hpp"
-#include "display.hpp"
+// #include "display.hpp"
+// #include "simulation.hpp"
+
+#include "matrix.hpp"
 
 // Use modules
 
 int main() {
-    Display display;
+    Matrix display(10, 10, 10);
 
-    while (display.running()) {
-        display.update();
-    }
+    // while (display.running()) {
+    //     display.update();
+    // }
 
     return 0;
 }

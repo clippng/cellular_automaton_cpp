@@ -4,7 +4,6 @@
 #include <memory>
 
 #include "cell.hpp"
-#include "rule.hpp"
 #include "rule_set.hpp"
 
 class Matrix {
@@ -22,11 +21,11 @@ public:
 	void updateCellAtIndex(int x, int y); // implicitly update based off rule set
 	void updateCellAtIndex(int index_);
 
-private:
+//private:
 	unsigned int width;
 	unsigned int height;
 	unsigned int cell_size; // w / h of each cell
 
 	std::unique_ptr<std::vector<Cell>> matrix;
-	std::unique_ptr<std::vector<Rule>> rules;
+	std::unique_ptr<GameOfLife> rule_set;
 };

@@ -1,19 +1,16 @@
 #include "matrix.hpp"
 #include "cell.hpp"
-#include "rule_set.hpp"
-#include <exception>
 #include <vector>
 
+#include <iostream>
 // Should initialise a matrix of variable width and height 
 // with default (dead) cells
 Matrix::Matrix(int cell_size_, int window_w_, int window_h_) {
 	width = window_w_ / cell_size_;
 	height = window_h_ / cell_size_;
-	int grid_size_ = width * height;
+	unsigned int grid_size = width * height;
 
-	Cell cell;
-	matrix->assign(grid_size_, cell);
-
+	Cell a = getCellAtIndex(0, 0);
 }
 
 Cell Matrix::getCellAtIndex(int x, int y) {

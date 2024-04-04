@@ -1,10 +1,9 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-
 enum State {
 	DEAD = 0,
-	ALIVE = 1
+	ALIVE = 1,
+	UNKOWN_STATE = 666
 };
 
 class Cell {

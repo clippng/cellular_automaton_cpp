@@ -1,24 +1,25 @@
 #pragma once 
 
 #include <vector>
-#include <memory>
 
-#include "rule.hpp"
+#include "cell.hpp"
 
 class RuleSet {
 public:
-	RuleSet();
-	void clearRuleSet();
-	void addRule(Rule rule_);
+	//virtual State updateCell(State current_state, std::vector<State> neighbors);
+	virtual State updateCell(State current_state, unsigned int neighbours) = 0;
+protected:
 
-	void gameOfLife();
-	// neighbors to check == 8
-	// if alive && alive neighbors < 2 = death
-	// if alive && neighbors == 2 || 3 = live
-	// if alive && neigbors > 3 = death
-	// if dead and neighbors == 3 = live
+};
+
+class GameOfLife: RuleSet {
+public:
+	//GameOfLife();
+	//~GameOfLife();
+
+	State updateCell(State current_state, unsigned int neighbours) override;
 
 private:
-	std::unique_ptr<std::vector<Rule>> rules;
+	unsigned int neigbor_cells = 8;
 
 };

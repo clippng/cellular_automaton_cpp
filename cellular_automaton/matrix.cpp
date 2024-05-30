@@ -25,10 +25,10 @@ Matrix::~Matrix() {
 	// }
 }
 
-State Matrix::getCellAtIndex(const uint32_t row, const uint32_t column) {
+State Matrix::getCell(const uint32_t row, const uint32_t column) {
 	return matrix[row].at(column)->getState();
 }
 
-void Matrix::setCellAtIndex(const uint32_t row, const uint32_t column, const State state) {
+void Matrix::setCell(const uint32_t row, const uint32_t column, const State state) {
 	matrix[row].at(column)->setState(state);
 }

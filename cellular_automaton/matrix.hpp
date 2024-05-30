@@ -13,9 +13,9 @@ public:
 
 	~Matrix();
 
-	State getCellAtIndex(const uint32_t row, const uint32_t column);
+	State getCell(const uint32_t row, const uint32_t column);
 
-	void setCellAtIndex(const uint32_t row, const uint32_t column, const State state);
+	void setCell(const uint32_t row, const uint32_t column, const State state);
 
 private:
 	std::vector<std::vector<Cell*>> matrix;

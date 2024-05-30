@@ -7,16 +7,16 @@
 
 class Simulation {
 public:
-    Simulation();
+    Simulation(const uint32_t rows, const uint32_t columns, const uint32_t update_frequency);
+    ~Simulation();
     void nextGeneration();
 
 private:
-    unsigned int width, height, size;
-    unsigned int update_frequency;
-    unsigned int generation;
+    uint32_t rows, columns;
+    uint32_t update_frequency;
+    uint32_t generation;
 
-    std::unique_ptr<Matrix> matrix;
+    std::shared_ptr<Matrix> matrix;
     std::unique_ptr<UnitUtilities> unit_utilities;
-    void initialiseVariables();
 
 };

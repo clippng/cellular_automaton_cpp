@@ -9,7 +9,7 @@ Display::Display() {
 }
 
 const bool Display::running() {
-    return window->isOpen();
+    return window.isOpen();
 }
 
 void Display::initialiseVariables() {
@@ -20,9 +20,9 @@ void Display::initialiseVariables() {
 void Display::initialiseWindow() {
     video_mode.height = window_height;
     video_mode.width = window_width;
-    window = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow(video_mode, "Sand_sim",
+    sf::RenderWindow window(sf::RenderWindow(video_mode, "Sand_sim",
         sf::Style::Titlebar | sf::Style::Close));
-    window->setFramerateLimit(144);
+    window.setFramerateLimit(144);
 
     shape.setRadius(200.0f);
     
@@ -33,13 +33,9 @@ void Display::update() {
     //updateMousePosition();
     pollEvents();
 	//simulation->nextGeneration();
-    window->clear();
-    window->draw(shape);
-    window->display();
-}
-
-void Display::updateTexture() {
-
+    window.clear();
+    window.draw(shape);
+    window.display();
 }
 
 void Display::render() {
@@ -47,13 +43,13 @@ void Display::render() {
 }
 
 void Display::updateMousePosition() {
-    mouse_position_in_window = sf::Mouse::getPosition(*window);
+    mouse_position_in_window = sf::Mouse::getPosition(window);
 }
 
 void Display::pollEvents() {
-    while (window->pollEvent(event))
+    while (window.pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
-            window->close();
+            window.close();
     }
 }

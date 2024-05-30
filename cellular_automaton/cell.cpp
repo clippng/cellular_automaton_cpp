@@ -1,7 +1,7 @@
 #include "cell.hpp"
 
 Cell::Cell() {
-	state = DEAD;
+	state = ALIVE;
 }
 
 State Cell::getState() {

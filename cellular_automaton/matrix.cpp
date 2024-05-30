@@ -1,141 +1,34 @@
 #include "matrix.hpp"
 #include "cell.hpp"
-#include <vector>
 
-#include <iostream>
-// Should initialise a matrix of variable width and height 
-// with default (dead) cells
-Matrix::Matrix(int cell_size_, int window_w_, int window_h_) {
-	width = window_w_ / cell_size_;
-	height = window_h_ / cell_size_;
-	unsigned int grid_size = width * height;
+// ive fixed this class --apart from the destructor
 
-	Cell a = getCellAtIndex(0, 0);
-}
+Matrix::Matrix(const uint32_t rows, const uint32_t columns) {
+	matrix.resize(rows);
 
-Cell Matrix::getCellAtIndex(int x, int y) {
-	return matrix->at(x + y * width);
-}
-
-std::vector<Cell> Matrix::getCellNeigbors4(int x, int y) {
-	std::vector<Cell> neighbors_;
-	Cell cell_;
-
-	cell_ = getCellAtIndex(x, y - 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x, y + 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 1, y);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x + 1, y);
-	neighbors_.push_back(cell_);
-
-	return neighbors_;
-}
-
-std::vector<Cell> Matrix::getCellNeigbors8(int x, int y) {
-	std::vector<Cell> neighbors_;
-	Cell cell_;
-
-	cell_ = getCellAtIndex(x, y - 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x, y + 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 1, y);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x + 1, y);
-	neighbors_.push_back(cell_);
-
-	cell_ = getCellAtIndex(x + 1, y - 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 1, y - 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x + 1, y + 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 1, y + 1);
-	neighbors_.push_back(cell_);
-
-	return neighbors_;
-}
-
-std::vector<Cell> Matrix::getCellNeigbors24(int x, int y) {
-	std::vector<Cell> neighbors_;
-	Cell cell_;
-
-	cell_ = getCellAtIndex(x, y - 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x, y + 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 1, y);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x + 1, y);
-	neighbors_.push_back(cell_);
-
-	cell_ = getCellAtIndex(x + 1, y - 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 1, y - 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x + 1, y + 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 1, y + 1);
-	neighbors_.push_back(cell_);
-
-	cell_ = getCellAtIndex(x, y - 2);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 1, y - 2);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 2, y - 2);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x + 1, y - 2);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x + 2, y - 2);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x, y - 2);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 1, y +2);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 2, y + 2);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x + 1, y + 2);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x + 2, y + 2);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 2, y);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 2, y - 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 2, y - 2);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 2, y + 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x - 2, y + 2);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x + 2, y);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x + 2, y - 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x + 2, y - 2);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x + 2, y + 1);
-	neighbors_.push_back(cell_);
-	cell_ = getCellAtIndex(x + 2, y + 2);
-	neighbors_.push_back(cell_);
-
-	return neighbors_;
-}
-
-void Matrix::setCellAtIndex(int x, int y, Cell cell_) {
-	matrix->at(x + y * width) = cell_;
-}
-
-void Matrix::updateCellAtIndex(int x, int y) {
+	for (int i = 0; i < matrix.size(); ++i) {
+		for (int j = 0; j < columns; ++j) {
+			Cell *cell = new Cell;
+			matrix[i].push_back(cell);
+		}
+	}
 
 }
 
-void Matrix::setCellAtIndex(int index_, Cell cell_) {
-	matrix->at(index_) = cell_;
+Matrix::~Matrix() {
+	// const int rows = matrix.size();
+	// const int columns = matrix[0].size();
+	// for (int i = 0; i < rows; ++i) {
+	// 	for (int j = 0; j < columns; ++j) {
+	// 		delete &matrix[i].at(j);
+	// 	}
+	// }
 }
 
-void Matrix::updateCellAtIndex(int index_) {
+State Matrix::getCellAtIndex(const uint32_t row, const uint32_t column) {
+	return matrix[row].at(column)->getState();
+}
 
+void Matrix::setCellAtIndex(const uint32_t row, const uint32_t column, const State state) {
+	matrix[row].at(column)->setState(state);
 }

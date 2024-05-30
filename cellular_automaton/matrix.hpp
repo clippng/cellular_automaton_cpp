@@ -4,28 +4,19 @@
 #include <memory>
 
 #include "cell.hpp"
-#include "rule_set.hpp"
+
+// needs to be reinitialised if size changes
 
 class Matrix {
 public:
-	Matrix(int cell_size_, int window_w_, int window_h_);
+	Matrix(const uint32_t rows, const uint32_t columns);
 
-	Cell getCellAtIndex(int x, int y);
-	std::vector<Cell> getCellNeigbors4(int x, int y);
-	std::vector<Cell> getCellNeigbors8(int x, int y);
-	std::vector<Cell> getCellNeigbors24(int x, int y);
-	//std::vector<Cell> getCellNeigbors48(int x, int y);
+	~Matrix();
 
-	void setCellAtIndex(int x, int y, Cell cell_); // explicitly set a cell
-	void setCellAtIndex(int index_, Cell cell_);
-	void updateCellAtIndex(int x, int y); // implicitly update based off rule set
-	void updateCellAtIndex(int index_);
+	State getCellAtIndex(const uint32_t row, const uint32_t column);
 
-//private:
-	unsigned int width;
-	unsigned int height;
-	unsigned int cell_size; // w / h of each cell
+	void setCellAtIndex(const uint32_t row, const uint32_t column, const State state);
 
-	std::unique_ptr<std::vector<Cell>> matrix;
-	std::unique_ptr<GameOfLife> rule_set;
+private:
+	std::vector<std::vector<Cell*>> matrix;
 };

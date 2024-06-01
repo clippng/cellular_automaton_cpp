@@ -1,5 +1,4 @@
 #include "display.hpp"
-#include "simulation.hpp"
 
 #include <iostream>
 

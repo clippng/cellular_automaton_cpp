@@ -2,9 +2,11 @@
 #include "simulation.hpp"
 #include <memory>
 
+#include <iostream>
 
 Display::Display() {
 	initialiseVariables();
+    std::cout << "Display init" << std::endl;
 	initialiseWindow();
 }
 
@@ -15,8 +17,9 @@ const bool Display::running() {
 }
 
 void Display::initialiseVariables() {
-    unit_utilities = std::unique_ptr<UnitUtilities>(new UnitUtilities(pixelModifer, window_width, window_height));
-	simulation = std::unique_ptr<Simulation>(new Simulation(window_width / pixelModifer, window_height / pixelModifer, 1));
+    //unit_utilities = std::unique_ptr<UnitUtilities>(new UnitUtilities(pixelModifer, window_width, window_height));
+	std::unique_ptr<Simulation> simulation(new Simulation(window_width / pixelModifer, window_height / pixelModifer, 1));
+    matrix = simulation->getMatrixPointer();
 }
 
 void Display::initialiseWindow() {
@@ -35,6 +38,12 @@ void Display::update() {
     pollEvents();
     window->clear();
     // draw cells in matrix (cell.shape)
+    // std::shared_ptr<std::vector<std::vector<Cell*>>> cells = matrix->getReference();
+    // for (uint32_t i = 0; i < matrix->getColumns(); ++i) {
+    //     for (uint32_t j = 0; j < matrix->getRows(); ++i) {
+    //         //window->draw(*cells->at(i).at(j)->getDrawable());
+    //     }
+    // }
     window->draw(shape);
     window->display();
 }

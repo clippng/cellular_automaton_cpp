@@ -13,10 +13,22 @@ public:
 
 	~Matrix();
 
-	State getCell(const uint32_t row, const uint32_t column);
+	uint32_t getRows();
+
+	uint32_t getColumns();
+
+	uint32_t getSize();
+
+	std::shared_ptr<std::vector<std::vector<Cell*>>> getReference();
+
+	State getCellState(const uint32_t row, const uint32_t column);
+
+	Cell* getCell(const uint32_t row, const uint32_t column);
 
 	void setCell(const uint32_t row, const uint32_t column, const State state);
 
+
 private:
-	std::vector<std::vector<Cell*>> matrix;
+	std::shared_ptr<std::vector<std::vector<Cell*>>> data;
+	uint32_t rows, columns, size;
 };

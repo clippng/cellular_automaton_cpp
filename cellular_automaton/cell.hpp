@@ -14,6 +14,7 @@ public:
 	State getState();
 	void setState(State state);
 	void updateColour(sf::Color colour);
+	sf::RectangleShape* getDrawable();
 private:
 	State state;
 	sf::Color colour;

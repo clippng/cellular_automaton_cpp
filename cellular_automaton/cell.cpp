@@ -22,3 +22,7 @@ void Cell::setState(State state) {
 void Cell::updateColour(sf::Color colour) {
 	this->colour = colour;
 }
+
+sf::RectangleShape* Cell::getDrawable() {
+	return &shape;
+}

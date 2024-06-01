@@ -10,6 +10,7 @@ public:
     Simulation(const uint32_t rows, const uint32_t columns, const uint32_t update_frequency);
     ~Simulation();
     void nextGeneration();
+    std::shared_ptr<Matrix> getMatrixPointer();
 
 private:
     uint32_t rows, columns;

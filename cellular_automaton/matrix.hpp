@@ -4,12 +4,13 @@
 #include <memory>
 
 #include "cell.hpp"
+#include "unit_utilities.hpp"
 
 // needs to be reinitialised if size changes
 
 class Matrix {
 public:
-	Matrix(const uint32_t rows, const uint32_t columns);
+	Matrix(const uint32_t rows, const uint32_t columns, const std::shared_ptr<UnitUtilities> unit_utilities);
 
 	~Matrix();
 
@@ -36,6 +37,7 @@ public:
 	void emptyMatrix();
 
 private:
+	std::shared_ptr<UnitUtilities> unit_utilities;
 	std::shared_ptr<std::vector<std::vector<Cell>>> data;
 	std::vector<std::vector<Cell>> next_generation_data;
 	uint32_t rows, columns, size;

@@ -1,56 +1,25 @@
 #include "unit_utilities.hpp"
 
-UnitUtilities::UnitUtilities(int _pixelModifier, int _windowWidth, int _windowHeight) {
-	pixelModifier = _pixelModifier;
-	windowWidth = _windowWidth;
-	windowHeight = _windowHeight;
-	matrixHeight = _windowHeight / _pixelModifier;
-	matrixWidth = _windowWidth / _pixelModifier;
-	quadSize = 4;
-	pixelSize = 4;
+UnitUtilities::UnitUtilities(uint32_t unit_size, uint32_t window_width, uint32_t window_height) {
+	this->unit_size = unit_size;
+	this->window_width = window_width;
+	this->window_height = window_height;
+	matrix_height = window_height / unit_size;
+	matrix_width = window_width / unit_size;
+
 }
 
-int UnitUtilities::convertToMatrix(int pixelValue) {
-    return pixelValue / pixelModifier;
-}
+uint32_t UnitUtilities::convertToMatrix(uint32_t pixel_value) { return pixel_value / unit_size; }
 
+uint32_t UnitUtilities::convertToPixel(uint32_t matrix_value) { return matrix_value * unit_size; }
 
-int UnitUtilities::convertToPixel(int matrixValue)
-{
-	return matrixValue * pixelModifier;
-}
+uint32_t UnitUtilities::getWidth() { return window_width; }
 
-int UnitUtilities::getWidth()
-{
-	return windowWidth;
-}
+uint32_t UnitUtilities::getHeight() { return window_height; }
 
-int UnitUtilities::getHeight()
-{
-	return windowHeight;
-}
+uint32_t UnitUtilities::getMatrixHeight() { return matrix_height; }
 
-int UnitUtilities::getPixelModifier()
-{
-	return pixelModifier;
-}
+uint32_t UnitUtilities::getMatrixWidth() { return matrix_width; }
 
-int UnitUtilities::getMatrixHeight()
-{
-	return matrixHeight;
-}
+uint32_t UnitUtilities::getPixelSize() { return unit_size; }
 
-int UnitUtilities::getMatrixWidth()
-{
-	return matrixWidth;
-}
-
-int UnitUtilities::getPixelSize()
-{
-	return pixelSize;
-}
-
-int UnitUtilities::getQuadSize()
-{
-	return quadSize;
-}

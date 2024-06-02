@@ -2,20 +2,20 @@
 #include "cell.hpp"
 #include "display.hpp"
 
-#include <iostream>
 
-// ive fixed this class 
-
-Matrix::Matrix(const uint32_t columns, const uint32_t rows) {
+Matrix::Matrix(const uint32_t columns, const uint32_t rows, const std::shared_ptr<UnitUtilities> unit_utilities) {
 	data = std::shared_ptr<std::vector<std::vector<Cell>>>(new std::vector<std::vector<Cell>>());
 	*data = std::vector<std::vector<Cell>>(columns);
 	this->rows = rows;
 	this->columns = columns;
 	this->size = rows * columns;
+	this->unit_utilities = unit_utilities;
+
+	const uint32_t pixel_size = unit_utilities->getPixelSize();
 
 	for (uint32_t i = 0; i < this->columns; ++i) {
 		for (uint32_t j = 0; j < this->rows; ++j) {
-			Cell* cell = new Cell(DEAD, PIXEL_MODIFIER, PIXEL_MODIFIER, i * PIXEL_MODIFIER, j * PIXEL_MODIFIER, sf::Color::Black, sf::Color::White, 0.0f);
+			Cell* cell = new Cell(DEAD, pixel_size, pixel_size, i * pixel_size, j * pixel_size, sf::Color::Black, sf::Color::White, 0.0f);
 			data->at(i).push_back(*cell);
 			data->at(i).at(j).updateColour();
 		}

@@ -17,8 +17,8 @@ const bool Display::running() {
 }
 
 void Display::initialiseVariables() {
-    //unit_utilities = std::unique_ptr<UnitUtilities>(new UnitUtilities(pixelModifer, window_width, window_height));
-	simulation = std::unique_ptr<Simulation>(new Simulation(WINDOW_WIDTH / PIXEL_MODIFIER, WINDOW_HEIGHT / PIXEL_MODIFIER, 1));
+    unit_utilities = std::shared_ptr<UnitUtilities>(new UnitUtilities(PIXEL_MODIFIER, WINDOW_WIDTH, WINDOW_WIDTH));
+	simulation = std::unique_ptr<Simulation>(new Simulation(WINDOW_WIDTH / PIXEL_MODIFIER, WINDOW_HEIGHT / PIXEL_MODIFIER, 1, unit_utilities));
     matrix = simulation->getMatrixPointer();
 }
 

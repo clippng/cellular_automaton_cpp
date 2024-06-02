@@ -1,26 +1,30 @@
 #pragma once
 
+#include <cstdint>
+
 // Tools for converting to / from window space to matrix space
 class UnitUtilities {
 public:
-    UnitUtilities(int _pixelModifier, int _windowWidth, int _windowHeight);
+    UnitUtilities(uint32_t pixel_modifier, uint32_t window_width, uint32_t window_height);
 
-	int convertToMatrix(int pixelValue);
-	int convertToPixel(int matrixValue);
-	int getWidth();
-	int getHeight();
-	int getPixelModifier();
-	int getMatrixHeight();
-	int getMatrixWidth();
-	int getPixelSize();
-	int getQuadSize();
+	uint32_t convertToMatrix(uint32_t pixel_value);
+
+	uint32_t convertToPixel(uint32_t matrix_value);
+
+	uint32_t getWidth();
+
+	uint32_t getHeight();
+
+	uint32_t getMatrixHeight();
+
+	uint32_t getMatrixWidth();
+	
+	uint32_t getPixelSize();
 	
 private:
-	int pixelModifier;
-	int windowWidth;
-	int windowHeight;
-	int matrixHeight;
-	int matrixWidth;
-	int quadSize;
-	int pixelSize;
+	uint32_t window_width;
+	uint32_t window_height;
+	uint32_t matrix_height;
+	uint32_t matrix_width;
+	uint32_t unit_size;
 };

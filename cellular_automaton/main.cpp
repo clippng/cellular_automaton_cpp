@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-
+// works but the architecture is disgusting
 
 int main() {
     Display display;

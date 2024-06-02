@@ -2,8 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <vector>
-
 enum State {
 	DEAD = 0,
 	ALIVE = 1,

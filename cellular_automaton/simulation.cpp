@@ -2,15 +2,15 @@
 
 #include <iostream>
 
-Simulation::Simulation(const uint32_t columns, const uint32_t rows, const uint32_t update_frequency) {
+Simulation::Simulation(const uint32_t columns, const uint32_t rows, const uint32_t update_frequency, const std::shared_ptr<UnitUtilities> unit_utilities) {
     this->rows = rows;
     this->columns = columns;
     this->update_frequency = update_frequency;
+    this->unit_utilities = unit_utilities;
 
     generation = 0;
 
-    // seg faults
-    matrix = std::shared_ptr<Matrix>(new Matrix(rows, columns));
+    matrix = std::shared_ptr<Matrix>(new Matrix(rows, columns, unit_utilities));
 }
 
 Simulation::~Simulation() {

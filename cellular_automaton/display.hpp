@@ -16,7 +16,7 @@
 const uint32_t WINDOW_WIDTH = 800;
 const uint32_t WINDOW_HEIGHT = 800;
 const uint32_t PIXEL_MODIFIER = 5;
-const uint32_t MAX_FRAME_RATE = 60;
+const uint32_t MAX_FRAME_RATE = 144;
 
 class Display {
 public:

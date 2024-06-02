@@ -19,11 +19,11 @@ Simulation::~Simulation() {
 
 void Simulation::nextGeneration() {
     matrix->update();
-    for (uint32_t i = 0; i < matrix->getColumns(); ++i) { 
-        for (uint32_t j = 0; j < matrix->getRows(); ++j) {
-            matrix->updateCell(i, j);
-        }
-    }
+    // for (uint32_t i = 0; i < matrix->getColumns(); ++i) { 
+    //     for (uint32_t j = 0; j < matrix->getRows(); ++j) {
+    //         matrix->updateCell(i, j);
+    //     }
+    // }
 }
 
 std::shared_ptr<Matrix> Simulation::getMatrixPointer(){

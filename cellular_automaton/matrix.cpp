@@ -7,33 +7,31 @@
 // ive fixed this class 
 
 Matrix::Matrix(const uint32_t columns, const uint32_t rows) {
-	data = std::shared_ptr<std::vector<std::vector<Cell*>>>(new std::vector<std::vector<Cell*>>());
-	*data = *new std::vector<std::vector<Cell*>>(columns);
+	data = std::shared_ptr<std::vector<std::vector<Cell>>>(new std::vector<std::vector<Cell>>());
+	*data = std::vector<std::vector<Cell>>(columns);
 	this->rows = rows;
 	this->columns = columns;
-	this->size = this->rows * this->columns;
+	this->size = rows * columns;
 
 	for (uint32_t i = 0; i < this->columns; ++i) {
 		for (uint32_t j = 0; j < this->rows; ++j) {
-			Cell *cell = new Cell(DEAD, PIXEL_MODIFIER, PIXEL_MODIFIER, i * PIXEL_MODIFIER, j * PIXEL_MODIFIER, sf::Color::Black, sf::Color::White, 0.0f);
-			data->at(i).push_back(cell);
-			data->at(i).at(j)->updateColour();
+			Cell* cell = new Cell(DEAD, PIXEL_MODIFIER, PIXEL_MODIFIER, i * PIXEL_MODIFIER, j * PIXEL_MODIFIER, sf::Color::Black, sf::Color::White, 0.0f);
+			data->at(i).push_back(*cell);
+			data->at(i).at(j).updateColour();
 		}
 	}
 
-	data->at(columns/ 2).at(rows /2)->setState(ALIVE);
-	data->at(columns/ 2).at(rows /2 -1)->setState(ALIVE);
-	data->at(columns/ 2-1).at(rows /2)->setState(ALIVE);
-	data->at(columns/ 2).at(rows /2+1)->setState(ALIVE);
-	data->at(columns/ 2 + 1).at(rows /2 + 1)->setState(ALIVE);
+	data->at(columns/ 2).at(rows /2).setState(ALIVE);
+	data->at(columns/ 2).at(rows /2 -1).setState(ALIVE);
+	data->at(columns/ 2-1).at(rows /2).setState(ALIVE);
+	data->at(columns/ 2).at(rows /2+1).setState(ALIVE);
+	data->at(columns/ 2 + 1).at(rows /2 + 1).setState(ALIVE);
+
+	next_generation_data = std::vector<std::vector<Cell>>(columns);
 }
 
 Matrix::~Matrix() {
-	for (int i = 0; i < columns; ++i) {
-		for (int j = 0; j < rows; ++j) {
-			delete data->at(i).at(j);
-		}
-	}
+
 }
 
 uint32_t Matrix::getRows() { return rows; } 
@@ -42,21 +40,28 @@ uint32_t Matrix::getColumns() { return columns; }
 
 uint32_t Matrix::getSize() const { return size; }
 
-std::shared_ptr<std::vector<std::vector<Cell*>>> Matrix::getReference() {
+std::shared_ptr<std::vector<std::vector<Cell>>> Matrix::getReference() {
 	return data;
 }
 
 void Matrix::update() {
 	// cpy prev gen into next gen operate on prev gen and save to next gen -- push next gen into data and repeat
-	next_generation_data = data;
 
-	emptyMatrix(data.get());
+	next_generation_data = *data;
+
+    for (uint32_t i = 0; i < columns; ++i) { 
+        for (uint32_t j = 0; j < rows; ++j) {
+            updateCell(i, j);
+        }
+    }
+
+	//emptyMatrix();
+
+	*data = next_generation_data;
 
 	for (uint32_t i = 0; i < columns; ++i) {
 		for (uint32_t j = 0; j < rows; ++j) {
-			Cell* cell = new Cell(next_generation_data->at(i).at(j)->getState(), PIXEL_MODIFIER, PIXEL_MODIFIER, i * PIXEL_MODIFIER, j * PIXEL_MODIFIER, sf::Color::Black, sf::Color::White, 0.0f);
-			data->at(i).push_back(cell);
-			data->at(i).at(j)->updateColour();
+			data->at(i).at(j).updateColour();
 		}
 	}
 }
@@ -77,9 +82,8 @@ void Matrix::updateCell(uint32_t column, uint32_t row) {
 		row = 0;
 	}
 
-	data->at(column).at(row)->Cell::updateCell(getCellNeighbours(column, row, MAX_COLUMN, MAX_ROW));
-
-	data->at(column).at(row)->updateColour();
+	next_generation_data.at(column).at(row).Cell::updateCell(getCellNeighbours(column, row, MAX_COLUMN, MAX_ROW));
+	next_generation_data.at(column).at(row).updateColour();
 }
 
 uint32_t Matrix::getCellNeighbours(const uint32_t column, const uint32_t row, const uint32_t MAX_COLUMN, const uint32_t MAX_ROW) {
@@ -106,39 +110,39 @@ uint32_t Matrix::getCellNeighbours(const uint32_t column, const uint32_t row, co
 		row_down = row - 1;
 	}
 
-	if (data->at(column_right).at(row_up)->getState() == ALIVE) {
+	if (data->at(column_right).at(row_up).getState() == ALIVE) {
 		alive_neighbours++;
-	} if (data->at(column_right).at(row)->getState() == ALIVE) {
+	} if (data->at(column_right).at(row).getState() == ALIVE) {
 		alive_neighbours++;
-	} if (data->at(column_right).at(row_down)->getState() == ALIVE) {
+	} if (data->at(column_right).at(row_down).getState() == ALIVE) {
 		alive_neighbours++;
-	} if (data->at(column).at(row_up)->getState() == ALIVE) {
+	} if (data->at(column).at(row_up).getState() == ALIVE) {
 		alive_neighbours++;
-	} if (data->at(column).at(row_down)->getState() == ALIVE) {
+	} if (data->at(column).at(row_down).getState() == ALIVE) {
 		alive_neighbours++;
-	} if (data->at(column_left).at(row_up)->getState() == ALIVE) {
+	} if (data->at(column_left).at(row_up).getState() == ALIVE) {
 		alive_neighbours++;
-	} if (data->at(column_left).at(row)->getState() == ALIVE) {
+	} if (data->at(column_left).at(row).getState() == ALIVE) {
 		alive_neighbours++;
-	} if (data->at(column_left).at(row_down)->getState() == ALIVE) {
+	} if (data->at(column_left).at(row_down).getState() == ALIVE) {
 		alive_neighbours++;
 	}
 	return alive_neighbours;
 }
 
 State Matrix::getCellState(const uint32_t row, const uint32_t column) {
-	return data->at(row).at(column)->getState();
+	return data->at(row).at(column).getState();
 }
 
 Cell* Matrix::getCell(const uint32_t row, const uint32_t column) {
-	return data->at(row).at(column);
+	return &data->at(row).at(column);
 }
 
 void Matrix::setCell(const uint32_t row, const uint32_t column, const State state) {
-	data->at(row).at(column)->setState(state);
+	data->at(row).at(column).setState(state);
 }
 
 // deletes all cells owned by a matrix
-void Matrix::emptyMatrix(const std::vector<std::vector<Cell*>>* pointer) {
+void Matrix::emptyMatrix() {
 
 }

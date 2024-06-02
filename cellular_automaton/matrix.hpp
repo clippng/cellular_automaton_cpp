@@ -19,7 +19,7 @@ public:
 
 	uint32_t getSize() const;
 
-	std::shared_ptr<std::vector<std::vector<Cell*>>> getReference();
+	std::shared_ptr<std::vector<std::vector<Cell>>> getReference();
 
 	void update();
 
@@ -33,10 +33,10 @@ public:
 
 	void setCell(const uint32_t row, const uint32_t column, const State state);
 
-	void emptyMatrix(const std::vector<std::vector<Cell*>>* pointer);
+	void emptyMatrix();
 
 private:
-	std::shared_ptr<std::vector<std::vector<Cell*>>> data;
-	std::shared_ptr<std::vector<std::vector<Cell*>>> next_generation_data;
+	std::shared_ptr<std::vector<std::vector<Cell>>> data;
+	std::vector<std::vector<Cell>> next_generation_data;
 	uint32_t rows, columns, size;
 };

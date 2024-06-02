@@ -26,7 +26,7 @@ void Display::initialiseWindow() {
     video_mode.height = WINDOW_HEIGHT;
     video_mode.width = WINDOW_WIDTH;
     window = new sf::RenderWindow(sf::RenderWindow(video_mode, "Sand_sim", sf::Style::Titlebar | sf::Style::Close));
-    window->setFramerateLimit(1);
+    window->setFramerateLimit(MAX_FRAME_RATE);
 }
 
 void Display::update() {

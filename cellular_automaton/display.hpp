@@ -12,6 +12,12 @@
 #include "unit_utilities.hpp"
 // Display class - handles all sfml rendering, simulation class
 // is for the actual logic 
+
+const uint32_t WINDOW_WIDTH = 800;
+const uint32_t WINDOW_HEIGHT = 800;
+const uint32_t PIXEL_MODIFIER = 5;
+const uint32_t MAX_FRAME_RATE = 60;
+
 class Display {
 public:
 	Display();
@@ -24,12 +30,8 @@ public:
 
     void update();
     void render();
-	sf::CircleShape shape;
     
 private:
-	uint32_t window_width = 1280;
-    uint32_t window_height = 800;
-    uint32_t pixelModifer = 2;
     static constexpr unsigned ticks_per_second = 60; 
     const sf::Time timePerUpdate = sf::seconds(1.0f / float(ticks_per_second));
 

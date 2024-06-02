@@ -18,33 +18,28 @@ const bool Display::running() {
 
 void Display::initialiseVariables() {
     //unit_utilities = std::unique_ptr<UnitUtilities>(new UnitUtilities(pixelModifer, window_width, window_height));
-	std::unique_ptr<Simulation> simulation(new Simulation(window_width / pixelModifer, window_height / pixelModifer, 1));
+	simulation = std::unique_ptr<Simulation>(new Simulation(WINDOW_WIDTH / PIXEL_MODIFIER, WINDOW_HEIGHT / PIXEL_MODIFIER, 1));
     matrix = simulation->getMatrixPointer();
 }
 
 void Display::initialiseWindow() {
-    video_mode.height = window_height;
-    video_mode.width = window_width;
+    video_mode.height = WINDOW_HEIGHT;
+    video_mode.width = WINDOW_WIDTH;
     window = new sf::RenderWindow(sf::RenderWindow(video_mode, "Sand_sim", sf::Style::Titlebar | sf::Style::Close));
-    window->setFramerateLimit(144);
-
-    shape.setRadius(200.0f);
-    
-    shape.setFillColor(sf::Color::Red);
+    window->setFramerateLimit(1);
 }
 
 void Display::update() {
+    simulation->nextGeneration();
     //updateMousePosition();
+
     pollEvents();
     window->clear();
-    // draw cells in matrix (cell.shape)
-    // std::shared_ptr<std::vector<std::vector<Cell*>>> cells = matrix->getReference();
-    // for (uint32_t i = 0; i < matrix->getColumns(); ++i) {
-    //     for (uint32_t j = 0; j < matrix->getRows(); ++i) {
-    //         //window->draw(*cells->at(i).at(j)->getDrawable());
-    //     }
-    // }
-    window->draw(shape);
+    for (uint32_t i = 0; i < matrix->getColumns(); ++i) {
+        for (uint32_t j = 0; j < matrix->getRows(); ++j) {
+           window->draw(*matrix->getCell(i, j)->getDrawable());
+        }
+    }
     window->display();
 }
 

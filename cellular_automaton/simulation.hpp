@@ -31,10 +31,8 @@ private:
         sf::VideoMode video_mode;
         sf::Vector2i mouse_position_in_window;
 
-        static constexpr uint32_t ticks_per_second = 60; 
-        const uint32_t MAX_FRAME_RATE = 144;
-        const sf::Time timePerUpdate = sf::seconds(1.0f / float(ticks_per_second));
-    
+        const uint32_t MAX_FRAME_RATE = 10; // also the update rate
+
         void updateMousePosition();
         void pollEvents();
     } window_data;

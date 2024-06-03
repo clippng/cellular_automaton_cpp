@@ -1,5 +1,6 @@
 #include "simulation.hpp"
-#include <iostream>
+#include <chrono>
+#include <thread>
 
 Simulation::Simulation(SIMULATION_INIT_INFO *init_info) {
     matrix_data.rows = init_info->rows;
@@ -29,12 +30,14 @@ const bool Simulation::running() {
 
 void Simulation::update() {
     window_data.updateMousePosition();
+
     nextGeneration();
     render();
 }
 
 void Simulation::nextGeneration() {
     matrix_data.update();
+    generation++;
 }
 
 void Simulation::render() {
@@ -71,17 +74,17 @@ void Simulation::MATRIX_DATA::update() {
             uint32_t alive_neighbours = matrix_data->getCellNeighbours(row, column, MAX_ROW, MAX_COLUMN);
             State state = matrix_data->getCellState(row, column);
 
-            if (state == ALIVE) {
+            if (state == DEAD) {
+                if (alive_neighbours == 3) {
+                    state = ALIVE;
+                }
+            } else {
                 if (alive_neighbours < 2) {
                     state = DEAD;
                 } else if (alive_neighbours < 4) {
                     state = ALIVE;
                 } else {
                     state = DEAD;
-                }
-            } else {
-                if (alive_neighbours == 3) {
-                    state = ALIVE;
                 }
             }
 

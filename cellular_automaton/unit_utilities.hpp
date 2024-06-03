@@ -7,19 +7,19 @@ class UnitUtilities {
 public:
     UnitUtilities(uint32_t pixel_modifier, uint32_t window_width, uint32_t window_height);
 
-	uint32_t convertToMatrix(uint32_t pixel_value);
+	inline uint32_t convertToMatrix(uint32_t pixel_value) { return pixel_value / unit_size; }
 
-	uint32_t convertToPixel(uint32_t matrix_value);
+	inline uint32_t convertToScreen(uint32_t matrix_value) { return matrix_value * unit_size; }
 
-	uint32_t getWidth();
+	inline uint32_t getWidth() { return window_width; }
 
-	uint32_t getHeight();
+	inline uint32_t getHeight() { return window_height; }
 
-	uint32_t getMatrixHeight();
+	inline uint32_t getMatrixHeight() { return matrix_height; }
 
-	uint32_t getMatrixWidth();
-	
-	uint32_t getPixelSize();
+	inline uint32_t getMatrixWidth() { return matrix_width; }
+
+	inline uint32_t getUnitSize() { return unit_size; }
 	
 private:
 	uint32_t window_width;

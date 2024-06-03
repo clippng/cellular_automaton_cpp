@@ -15,28 +15,13 @@ Cell::~Cell() {
 
 }
 
-void Cell::updateCell(uint32_t alive_neighbours) {
-	if (state == ALIVE) {
-		if (alive_neighbours < 2) {
-			state = DEAD;
-		} else if (alive_neighbours < 4) {
-			state = ALIVE;
-		} else {
-			state = DEAD;
-		}
-	} else {
-		if (alive_neighbours == 3) {
-			state = ALIVE;
-		}
-	}
-}
-
 State Cell::getState() {
 	return state;
 }
 
 void Cell::setState(State state) {
 	this->state = state;
+	updateColour();
 }
 
 void Cell::updateColour() {

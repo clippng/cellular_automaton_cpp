@@ -14,13 +14,11 @@ public:
 	
 	~Cell();
 
-	void updateCell(uint32_t alive_neighbours);
-
 	State getState();
 
 	void setState(State state);
 
-	void updateColour();
+	void updateColour(); // really shouldnt have logic
 
 	sf::RectangleShape* getDrawable();
 
